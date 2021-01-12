@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<!-- load vue -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
+<!-- load axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"></script>
+
+
+
+<!-- Add this to <head> -->
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+</head>
+<body>
+    <div id="app">
+            <label for="">Nhập keyword để tìm kiếm</label>
+            <input type="text" v-model="filter">
+
+            <b-pagination
+                v-model="currentPage"
+                :total-rows="rows"
+                :per-page="perPage"
+                aria-controls="my-table"
+            ></b-pagination>
+            <p>Current Page: {{currentPage}}</p>
+            
+            <b-table striped bordered small hover foot-clone :busy="isBusy" 
+                ref = "mytable"
+                :items="items" 
+                :fields="fields"
+
+                selectable
+                :select-mode="selectMode"
+                :filter="filter"
+                @row-selected="onRowSelected"
+                
+                caption-top
+                :per-page="perPage"
+                :current-page="currentPage"
+
+                @filtered="onFiltered"
+            >
+                
+                    <template #table-busy>
+                        <div class="text-center text-danger my-2">
+                        <b-spinner class="align-middle"></b-spinner>
+                        <strong>Loading...</strong>
+                        </div>
+                    </template>
+                    <template #table-caption>This is a table caption at the top.</template>
+            </b-table>
+            <!-- striped: ngựa vằn : đen trắng xe kẽ -->
+            <!-- ordered: các ô đều có viền -->
+            <!-- small: các ô nhỏ lại -->
+            <!-- hover: di chuột vào thì sáng lên -->
+            <!-- foot-clone: foot clone y hệt như head -->
+            <!-- stacked: lật ngang thành dọc -->
+
+            <button @click="handle_click()">Loading!!!</button>
+            <br>
+            <button @click="select_all()">Select all</button>
+            <button @click="clearSelected()">Clear selected</button>
+            <button @click="selectThirdRow()">Select 3rd row</button>
+            <button @click="unselectThirdRow()">Unselect 3rd row</button>
+
+            <br>
+            <button @click="fetch_api()">Fetch api</button>
+
+            
+
+
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        methods:{
+            async fetch_api(){
+                await axios.get('https://jsonplaceholder.typicode.com/todos/1')
+                this.items = [
+                    {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                    {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"}
+                ]
+                this.rows = this.items.length
+
+            },
+            select_all(){
+                this.$refs.mytable.selectAllRows()
+            },
+            clearSelected(){
+                this.$refs.mytable.clearSelected()
+            },
+            selectThirdRow() {
+                // Rows are indexed from 0, so the third row is index 2
+                this.$refs.mytable.selectRow(2)
+            },
+            unselectThirdRow() {
+                // Rows are indexed from 0, so the third row is index 2
+                this.$refs.mytable.unselectRow(2)
+            },
+
+
+
+
+            handle_click(){
+                this.isBusy =! this.isBusy
+            },
+            onRowSelected(items) {
+                // this.selected = items
+                console.log(items)
+            },
+
+            onFiltered(filteredItems) {
+                this.rows = filteredItems.length
+                this.currentPage = 1
+            },
+
+        },
+        data:{
+            currentPage:1,
+            perPage:3,
+
+            filter:"",
+
+            // selectMode:'single',
+            selectMode:'multi',
+            isBusy:false,
+            fields:[
+                {
+                    key:'full_name',
+                    label:"Tên đầy đủ",
+                    headerTitle:"Tên đầy đủ", //tool tip
+                    // class:["class1_a","class1_b","class1_c"],
+                    tdClass:["class1_a","class1_b","class1_c"],
+                    thClass:["class1_a","class1_b","class1_c"],
+                    sortable:true,
+                    // stickyColumn:true,
+                },
+                {
+                    key:'age',
+                    label:"Tuổi",
+                    headerTitle:"Tuổi", //tool tip
+                    class:["class2_a","class2_b","class2_c"],
+                    sortable:true,
+                    // stickyColumn:true,
+                    // variant: 'danger' //active, success, info, warning, danger
+                },
+                {
+                    key:'job'
+                },
+                {
+                    key:'full_name2'
+                },
+                {
+                    key:'age2'
+                },
+                {
+                    key:'job2'
+                },
+
+            ],
+            items:[
+                // {
+                //     full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"
+                // },
+                // {
+                //     full_name:"nghia",age:20,job:"coder", _rowVariant:'info'
+                // },
+                // {full_name:"nguyen",age:21,job:"student",_rowVariant:'warning'
+                // },
+                // {full_name:"ba",age:22,job:"teacher",_cellVariants:{full_name:'info'}}
+
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"ba",age:22,job:"teacher",full_name2:"ba",age2:22,job2:"teacher"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"ba",age:22,job:"teacher",full_name2:"ba",age2:22,job2:"teacher"}
+            ],
+            rows:8
+        },
+        // computed:{
+        //     rows(){
+        //         return this.filteredItems.length
+        //     }
+        // }
+        
+
+    })
+</script>
+
