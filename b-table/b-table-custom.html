@@ -27,8 +27,9 @@
 <body>
     <div id="app">
             <template>
-                <my-b-table-component :fields="fields_table"/>
+                <my-b-table-component :fields="fields_table" :items="data_table" :rows="nb_rows"/>
             </template>
+            <!-- <button @click="handle_click()">Click</button> -->
     </div>
 </body>
 </html>
@@ -36,7 +37,12 @@
     new Vue({
         el:"#app",
         methods:{
-            
+            // handle_click(){
+            //     this.data_table = [
+            //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+            //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"}
+            //     ]
+            // }            
 
         },
         // mounted(){
@@ -72,6 +78,23 @@
                 }
 
             ],
+            data_table:[
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"}
+            ],
+            nb_rows:12
+
+
         },
 
     })

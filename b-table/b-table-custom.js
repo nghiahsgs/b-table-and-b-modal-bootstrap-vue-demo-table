@@ -42,7 +42,7 @@ Vue.component('my-b-table-component', {
         }
     },
     // props:{perPage: Number,fields:Array},
-    props:{fields:Array},
+    props:{fields:Array,items:Array,rows:Number},
     template:`<template><div>
     <label for="">Nhập keyword để tìm kiếm</label>
     <input type="text" v-model="filter">
@@ -99,36 +99,40 @@ Vue.component('my-b-table-component', {
         handle_click_detail(row){
             console.log(row)
         },
-        async fetch_api(){
-            this.isBusy = true
-            await axios.get('https://jsonplaceholder.typicode.com/todos/1')
-            this.items = [
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"}
-            ]
-            this.rows = this.items.length
-            this.isBusy = false
+        // async fetch_api(){
+        //     this.isBusy = true
+        //     await axios.get('https://jsonplaceholder.typicode.com/todos/1')
+        //     this.items = [
+        //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+        //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+        //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+        //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+        //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+        //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+        //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+        //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+        //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+        //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+        //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+        //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"}
+        //     ]
+        //     this.rows = this.items.length
+        //     this.isBusy = false
 
-        },
+        // },
         onFiltered(filteredItems) {
             this.rows = filteredItems.length
             this.currentPage = 1
         },
     },
+    watch:{
+        items(){
+            console.log("items change")
+        }
+    },
     mounted:async function(){
-        // console.log("mounted")
-        this.fetch_api()
-
+        // // console.log("mounted")
+        // this.fetch_api()
     }
 
 
