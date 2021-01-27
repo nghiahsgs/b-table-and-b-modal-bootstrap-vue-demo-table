@@ -9,9 +9,6 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script> -->
 <!-- load axios -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"></script>
-
-
-
 <!-- Add this to <head> -->
     <!-- Load required Bootstrap and BootstrapVue CSS -->
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
@@ -58,6 +55,12 @@
                 @filtered="onFiltered"
             >
                 
+                <template #cell(show_details)="row">
+                    <b-button size="sm" @click="handle_click_detail(row)" class="mr-2">
+                    Details
+                    </b-button>
+                </template>
+
                     <template #table-busy>
                         <div class="text-center text-danger my-2">
                         <b-spinner class="align-middle"></b-spinner>
@@ -93,6 +96,9 @@
     new Vue({
         el:"#app",
         methods:{
+            handle_click_detail(row){
+                console.log(row)
+            },
             async fetch_api(){
                 await axios.get('https://jsonplaceholder.typicode.com/todos/1')
                 this.items = [
@@ -136,7 +142,7 @@
         },
         data:{
             currentPage:1,
-            perPage:3,
+            perPage:5,
 
             filter:"",
 
@@ -175,6 +181,11 @@
                 {
                     key:'job2'
                 },
+                {
+                    key:'show_details',
+                    label:"Chi tiết",
+
+                }
 
             ],
             items:[
@@ -195,6 +206,14 @@
                 {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
                 {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
                 {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"ba",age:22,job:"teacher",full_name2:"ba",age2:22,job2:"teacher"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
+                {full_name:"ba",age:22,job:"teacher",full_name2:"ba",age2:22,job2:"teacher"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
+                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
                 {full_name:"ba",age:22,job:"teacher",full_name2:"ba",age2:22,job2:"teacher"}
             ],
             rows:8
@@ -208,4 +227,3 @@
 
     })
 </script>
-

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"></script>
+<!-- Add this to <head> -->
+    <!-- Load required Bootstrap and BootstrapVue CSS -->
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+<!-- Load polyfills to support older browsers -->
+<script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+<!-- Load Vue followed by BootstrapVue -->
+<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+<!-- Load the following for BootstrapVueIcons support -->
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+<script src="b-table-custom.js"></script>
+
+</head>
+<body>
+    <div id="app">
+            <template>
+                <my-b-table-component :fields="fields_table"/>
+            </template>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app",
+        methods:{
+            
+
+        },
+        // mounted(){
+            
+        // },
+        data:{
+            fields_table:[
+                {
+                    key:'full_name',
+                    label:"Tên đầy đủ",
+                    sortable:true,
+                },
+                {
+                    key:'age',
+                    label:"Tuổi",
+                    sortable:true,
+                },
+                {
+                    key:'job'
+                },
+                {
+                    key:'full_name2'
+                },
+                {
+                    key:'age2'
+                },
+                {
+                    key:'job2'
+                },
+                {
+                    key:'show_details',
+                    label:"Chi tiết",
+                }
+
+            ],
+        },
+
+    })
+</script>
