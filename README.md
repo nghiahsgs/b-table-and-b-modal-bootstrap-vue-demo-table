@@ -64,4 +64,45 @@ template cho btable
 
 ```
 
-zzz
+```js
+fields: [
+           {
+               key: 'key',
+               label: 'STT'
+           },
+           {
+               key: 'name',
+               label: "Tên chiến dịch",
+               headerTitle: "Tên chiến dịch", //tool tip
+               sortable: true,
+               // class:["class1_a","class1_b","class1_c"],
+               tdClass: ["text-left"],
+               // thClass: ["class1_a", "class1_b", "class1_c"],
+               // stickyColumn:true,
+               // variant: 'danger' //active, success, info, warning, danger
+           },
+           {
+               key: 'id',
+               label: "Id chiến dịch",
+               headerTitle: "Id chiến dịch", //tool tip
+               sortable: true,
+               tdClass: ["text-left"],
+           },
+           {
+               key: 'cost',
+               label: 'Số tiền bị google trừ',
+               tdClass: ["text-right"],
+               sortable: true,
+           },
+         ],
+```
+
+
+
+```
+methods:{
+                filterTable(row, filter){
+                    return row['name'].includes(filter)
+                }
+         }       
+```
