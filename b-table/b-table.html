@@ -55,6 +55,10 @@
                 @filtered="onFiltered"
             >
                 
+                <template #cell(stt)="row">
+                    <button class="btn btn-info">{{row.index}}</button>
+                </template>
+
                 <template #cell(show_details)="row">
                     <b-button size="sm" @click="handle_click_detail(row)" class="mr-2">
                     Details
@@ -180,6 +184,11 @@
                 },
                 {
                     key:'job2'
+                },
+                {
+                    key:'stt',
+                    label:"Số thứ tự",
+
                 },
                 {
                     key:'show_details',
