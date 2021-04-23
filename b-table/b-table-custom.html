@@ -15,7 +15,8 @@
 <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
 
 <!-- Load Vue followed by BootstrapVue -->
-<script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+<!-- <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
 
 <!-- Load the following for BootstrapVueIcons support -->
@@ -27,9 +28,15 @@
 <body>
     <div id="app">
             <template>
-                <my-b-table-component :fields="fields_table" :items="data_table" :rows="nb_rows"/>
+                <my-b-table-component :fields="fields_table" @handle_click_detail="handle_click_detail"/>
             </template>
-            <!-- <button @click="handle_click()">Click</button> -->
+            
+            <b-modal ref="myModal" hide-footer>
+                <div class="d-block text-center">
+                  <h3>{{name_selected}}</h3>
+                </div>
+            </b-modal>
+
     </div>
 </body>
 </html>
@@ -37,18 +44,18 @@
     new Vue({
         el:"#app",
         methods:{
-            // handle_click(){
-            //     this.data_table = [
-            //         {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-            //         {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"}
-            //     ]
-            // }            
-
+            handle_click_detail(data){
+                this.name_selected = data.item.full_name
+                this.$refs.myModal.show()
+                console.log('data',data.item.full_name)
+            }
         },
-        // mounted(){
-            
-        // },
+        mounted(){
+            // this.$refs.myModal.show()    
+        },
         data:{
+            name_selected:"nghiahsgs",
+
             fields_table:[
                 {
                     key:'full_name',
@@ -76,23 +83,7 @@
                     key:'show_details',
                     label:"Chi tiết",
                 }
-
             ],
-            data_table:[
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"},
-                {full_name:"nghia",age:20,job:"coder",full_name2:"nghia",age2:20,job2:"coder"},
-                {full_name:"nguyen",age:21,job:"student",full_name2:"nguyen",age2:21,job2:"student"}
-            ],
-            nb_rows:12
 
 
         },
