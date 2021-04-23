@@ -15,8 +15,14 @@ Vue.component('my-b-table-component', {
     props:{fields:Array},
     template:`
     <div>
-        <label for="">Nhập keyword để tìm kiếm</label>
-        <input type="text" v-model="filter">
+    <div class="row " style="margin-bottom:20px;">
+   
+        <div class="col-md-6">
+        <label for=""><strong>Nhập keyword để tìm kiếm</strong></label>
+        <input type="text" v-model="filter" class="form-control">
+        </div>
+    </div>
+       
         <!-- <p>Current Page: {{currentPage}}</p> -->
         
         <b-table bordered small hover foot-clone :busy="isBusy" 
@@ -58,13 +64,15 @@ Vue.component('my-b-table-component', {
             </template>
             <!-- <template #table-caption>This is a table caption at the top.</template> -->
         </b-table>
-
+        <div style="margin-top:20px;text-align:right;">
         <b-pagination
             v-model="currentPage"
             :total-rows="rows"
             :per-page="perPage"
             aria-controls="my-table"
+            class="pagination b-pagination"
         ></b-pagination>
+        </div>
 
         <!-- striped: ngựa vằn : đen trắng xe kẽ -->
         <!-- ordered: các ô đều có viền -->
