@@ -19,17 +19,32 @@ Vue.component('my-b-table-component', {
         <input type="text" v-model="filter">
         <!-- <p>Current Page: {{currentPage}}</p> -->
         
-        <b-table striped bordered small hover foot-clone :busy="isBusy" 
+        <b-table bordered small hover foot-clone :busy="isBusy" 
             ref = "mytable"
             :items="items" 
             :fields="fields"
             selectable
+            @row-selected="onRowSelected"
+
             :filter="filter"
             :per-page="perPage"
             :current-page="currentPage"
             @filtered="onFiltered"
+
             >
             <!-- khai bao la ton tai 1 cot la show_details -->
+            <!-- rowSelected la thuoc tinh cua row da dc chon chua -->
+            <template #cell(selected_cell)="{ rowSelected }">
+                <template v-if="rowSelected">
+                    <span aria-hidden="true">&check;</span>
+                    <span class="sr-only">Selected</span>
+                </template>
+                <template v-else>
+                    <span aria-hidden="true">&nbsp;</span>
+                    <span class="sr-only">Not selected</span>
+                </template>
+            </template>
+
             <template #cell(show_details)="row">
             <b-button size="sm" @click="handle_click_detail(row)" class="mr-2">
                 Details
@@ -61,6 +76,9 @@ Vue.component('my-b-table-component', {
     </div>
     `,
     methods:{
+        onRowSelected(list_row){
+            console.log('list_row select',list_row)
+        },
         handle_click_detail(row){
             this.$emit("handle_click_detail",row)
 

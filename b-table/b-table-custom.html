@@ -45,6 +45,7 @@
         el:"#app",
         methods:{
             handle_click_detail(data){
+                console.log('data',data)
                 this.name_selected = data.item.full_name
                 this.$refs.myModal.show()
                 console.log('data',data.item.full_name)
@@ -57,6 +58,10 @@
             name_selected:"nghiahsgs",
 
             fields_table:[
+                {
+                    key:'selected_cell',
+                    label:"Lựa chọn",
+                },
                 {
                     key:'full_name',
                     label:"Tên đầy đủ",
